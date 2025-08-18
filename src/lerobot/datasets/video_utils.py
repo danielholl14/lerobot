@@ -28,6 +28,7 @@ import torch
 import torchvision
 from datasets.features.features import register_feature
 from PIL import Image
+import math
 
 
 def get_safe_default_codec():
@@ -200,7 +201,9 @@ def decode_video_frames_torchcodec(
     average_fps = metadata.average_fps
 
     # convert timestamps to frame indices
-    frame_indices = [round(ts * average_fps) for ts in timestamps]
+    # frame_indices = [round(ts * average_fps) for ts in timestamps]
+    frame_indices = [min(math.floor(ts * average_fps), metadata.num_frames - 1) for ts in timestamps]
+
 
     # retrieve frames based on indices
     frames_batch = decoder.get_frames_at(indices=frame_indices)
