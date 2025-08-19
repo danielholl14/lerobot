@@ -36,7 +36,7 @@ import logging
 
 from huggingface_hub import HfApi
 
-from lerobot.datasets.lerobot_dataset import CODEBASE_VERSION, LeRobotDataset
+from lerobot.datasets.lerobot_dataset import CODEBASE_VERSION, LeRobotDataset, MultiLeRobotDataset
 from lerobot.datasets.utils import EPISODES_STATS_PATH, STATS_PATH, load_stats, write_info
 from lerobot.datasets.v21.convert_stats import check_aggregate_stats, convert_stats
 
@@ -55,11 +55,14 @@ class SuppressWarnings:
 
 def convert_dataset(
     repo_id: str,
+    #repo_id: list[str], # for multiple dataset loading
     branch: str | None = None,
     num_workers: int = 4,
 ):
     with SuppressWarnings():
         dataset = LeRobotDataset(repo_id, revision=V20, force_cache_sync=True, tolerance_s=1)
+        # load multiple datasets
+        #dataset = MultiLeRobotDataset(repo_ids=repo_id, revision=V20, force_cache_sync=True, tolerance_s=1)
 
     if (dataset.root / EPISODES_STATS_PATH).is_file():
         (dataset.root / EPISODES_STATS_PATH).unlink()
