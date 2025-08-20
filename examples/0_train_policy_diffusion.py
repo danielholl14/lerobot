@@ -31,7 +31,7 @@ from lerobot.policies.diffusion.modeling_diffusion import DiffusionPolicy
 
 def main():
     # Create a directory to store the training checkpoint.
-    output_directory = Path("outputs/train/abb_pick_place_diffusion")
+    output_directory = Path("outputs/train/abb_pick_place_diffusion_part1")
     output_directory.mkdir(parents=True, exist_ok=True)
 
     # # Select your device
@@ -47,7 +47,9 @@ def main():
     # creating the policy:
     #   - input/output shapes: to properly size the policy
     #   - dataset stats: for normalization and denormalization of input/outputs
-    dataset_metadata = LeRobotDatasetMetadata("AIR-AUDI/abb_pick_place_part1")
+    dataset_metadata = LeRobotDatasetMetadata("AIR-AUDI/abb_pick_place_part1") 
+    # TODO: could result in normalization problems, data distribution of the two datasets must be almost identical, when using multidataset
+
     features = dataset_to_policy_features(dataset_metadata.features)
     output_features = {key: ft for key, ft in features.items() if ft.type is FeatureType.ACTION}
     input_features = {key: ft for key, ft in features.items() if key not in output_features}
@@ -87,9 +89,12 @@ def main():
 # ['action', 'observation.state', 'timestamp', 'frame_index', 'episode_index', 'index', 'task_index', 'reward', 'done', 'next.reward', 'next.done']"
 
     # We can then instantiate the dataset with these delta_timestamps configuration.
-    #dataset = LeRobotDataset("AIR-AUDI/abb_pick_place_part1", delta_timestamps=delta_timestamps, tolerance_s=1) # high tolerance
+    dataset = LeRobotDataset("AIR-AUDI/abb_pick_place_part1", delta_timestamps=delta_timestamps, tolerance_s=1) # high tolerance
+    
     # load multiple datasets
-    dataset = MultiLeRobotDataset(repo_ids=["AIR-AUDI/abb_pick_place_part1", "AIR-AUDI/abb_pick_place_part2"], delta_timestamps=delta_timestamps, tolerances_s=1) # also with high tolerance
+    # repo_ids = ["AIR-AUDI/abb_pick_place_part1", "AIR-AUDI/abb_pick_place_part2"]
+    # tolerances_s = {repo_id: 1.0 for repo_id in repo_ids}
+    # dataset = MultiLeRobotDataset(repo_ids=repo_ids, delta_timestamps=delta_timestamps, tolerances_s=tolerances_s) # also with high tolerance
 
     # Then we create our optimizer and dataloader for offline training.
     optimizer = torch.optim.Adam(policy.parameters(), lr=1e-4)
