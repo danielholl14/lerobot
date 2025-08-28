@@ -1,0 +1,28 @@
+job_name: act_daniel3
+output_dir: outputs/train/act_daniel3
+num_workers: 12
+batch_size: 16      
+steps: 15000           
+eval_freq: 100       
+log_freq: 200      
+save_checkpoint: True
+dataset:
+  repo_id: AIR-AUDI/abb_pick_place_all
+policy:
+  type: act
+  push_to_hub: False
+  device: cuda
+  repo_id: AIR-AUDI/act_daniel3
+eval:
+  n_episodes: 16
+  batch_size: 16
+wandb:
+  enable: True
+  project: lerobot
+  entity: plab
+  mode: online
+  run_id: act_daniel3
+
+# Set export WANDB_BASE_URL=http://localhost:8080
+# WandB Choise: 2
+# Enter API key

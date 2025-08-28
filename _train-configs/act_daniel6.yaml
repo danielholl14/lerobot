@@ -1,0 +1,17 @@
+job_name: act_daniel6
+output_dir: outputs/train/act_daniel6
+dataset:
+  repo_id: AIR-AUDI/abb_pick_place_all
+policy:
+  type: act
+  push_to_hub: False
+  device: cuda
+  repo_id: AIR-AUDI/act_daniel6
+
+# Weights & Biases
+wandb:
+  enable: True
+  project: lerobot
+  entity: plab
+  mode: offline
+  run_id: act_daniel6

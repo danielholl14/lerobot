@@ -1,0 +1,33 @@
+job_name: act_daniel5
+output_dir: outputs/train/act_daniel5
+num_workers: 12
+batch_size: 16
+eval_freq: 1000        # alle 1k Steps evaluieren (nicht zu oft, spart Zeit)
+log_freq: 50
+save_checkpoint: True
+seed: 42               # Reproduzierbarkeit
+dataset:
+  repo_id: AIR-AUDI/abb_pick_place_all
+policy:
+  type: act
+  push_to_hub: False
+  chunk_size: 20
+  n_action_steps: 10
+  device: cuda
+  repo_id: AIR-AUDI/act_daniel5
+env:
+  type: hil
+
+# Evaluation
+eval:
+  n_episodes: 2
+  batch_size: 16
+  use_async_envs: false
+
+# Weights & Biases
+wandb:
+  enable: True
+  project: lerobot
+  entity: plab
+  mode: offline
+  run_id: act_daniel5
