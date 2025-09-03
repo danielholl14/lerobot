@@ -1,0 +1,23 @@
+job_name: act_abb_dataset_2_run2
+output_dir: outputs/train/act_abb_dataset_2_run2
+num_workers: 16
+batch_size: 16
+steps: 50000
+eval_freq: 100
+log_freq: 200
+save_freq: 2500
+save_checkpoint: True
+dataset:
+  repo_id: AIR-AUDI/abb_dataset_2
+policy:
+  type: act
+  push_to_hub: False
+  device: cuda
+  repo_id: AIR-AUDI/act_abb_dataset_2_run2
+  n_action_steps: 20
+wandb:
+  enable: True
+  project: abb
+  entity: daniels-team
+  mode: offline
+  run_id: act_abb_dataset_2_run2
