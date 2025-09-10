@@ -1,0 +1,20 @@
+job_name: diffusion_abb_dataset_3_run1
+output_dir: outputs/train/diffusion_abb_dataset_3_run1
+num_workers: 10
+#steps: 20000
+log_freq: 200
+save_freq: 2500
+save_checkpoint: True
+dataset:
+  repo_id: AIR-AUDI/abb_dataset_3
+policy:
+  type: diffusion
+  push_to_hub: False
+  device: cuda
+  repo_id: AIR-AUDI/diffusion_abb_dataset_3_run1
+wandb:
+  enable: True
+  project: abb
+  entity: daniels-team
+  mode: online
+  run_id: diffusion_abb_dataset_3_run1
