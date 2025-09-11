@@ -18,3 +18,4 @@ wandb:
   entity: daniels-team
   mode: online
   run_id: act_abb_dataset_3_run1
+  disable_artifact: True

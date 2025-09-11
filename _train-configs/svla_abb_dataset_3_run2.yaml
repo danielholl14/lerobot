@@ -1,18 +1,16 @@
-job_name: act_abb_dataset_3_run4
-output_dir: outputs/train/act_abb_dataset_3_run4
-num_workers: 4
-steps: 100000
+job_name: svla_abb_dataset_3_run2
+output_dir: outputs/train/svla_abb_dataset_3_run2
+num_workers: 8
 log_freq: 200
-eval_freq: 100
 save_freq: 2500
 save_checkpoint: True
 dataset:
   repo_id: AIR-AUDI/abb_dataset_3
 policy:
-  type: act
+  type: smolvla
   push_to_hub: False
   device: cuda
-  repo_id: AIR-AUDI/act_abb_dataset_3_run4
+  repo_id: AIR-AUDI/svla_abb_dataset_3_run2
   n_action_steps: 10
   chunk_size: 10
 wandb:
@@ -20,5 +18,5 @@ wandb:
   project: abb
   entity: daniels-team
   mode: online
-  run_id: act_abb_dataset_3_run4
+  run_id: svla_abb_dataset_3_run2
   disable_artifact: True
